@@ -26,9 +26,9 @@
     const handleSubmit = () => {
         if (validate()) {
             store.dispatch('submit', {
-				...formData,
-				lang: [...formData.lang]
-			})
+                ...formData,
+                lang: [...formData.lang]
+            })
             resetForm()
         }
     }
@@ -57,18 +57,17 @@
         return true
     }
     const resetForm = () => {
-		for (const key in formData) {
-			if (key === 'lang') formData[key] = []
-			else formData[key] = ''
-		}
+        for (const key in formData) {
+            if (key === 'lang') formData[key] = []
+            else formData[key] = ''
+        }
     }
 
-	const handleInput = (e) => {
-		const name = e.target.name
-		shadow[name] = ''
-		if (name === ' email') emailValidate(e.target.value)
-	}
-
+    const handleInput = e => {
+        const name = e.target.name
+        shadow[name] = ''
+        if (name === ' email') emailValidate(e.target.value)
+    }
 </script>
 
 <template>
@@ -77,54 +76,59 @@
             <div class="input-group-text">
                 <label for="name">Nombre</label>
                 <input
-                    :class="`form-control ${shadow.name ? 'shadow' : ''}`"
+                    class="form-control"
+                    :class="`${shadow.name ? 'shadow' : ''}`"
                     v-model.trim="formData.name"
                     type="text"
                     name="name"
                     id="name"
-					@input="handleInput"
+                    @input="handleInput"
                 />
             </div>
             <div class="input-group-text">
                 <label for="email">Correo</label>
                 <input
-                    :class="`form-control ${shadow.email ? 'shadow' : ''}`"
+                    class="form-control"
+                    :class="`${shadow.email ? 'shadow' : ''}`"
                     v-model="formData.email"
                     type="email"
                     name="email"
                     id="email"
-					@input="handleInput"
+                    @input="handleInput"
                 />
             </div>
             <div class="input-group-text">
                 <label for="number">Número</label>
                 <input
-                    :class="`form-control ${shadow.number ? 'shadow' : ''}`"
+                    class="form-control"
+                    :class="`${shadow.number ? 'shadow' : ''}`"
                     v-model.prevent="formData.number"
                     type="number"
                     name="number"
                     id="number"
-					@input="handleInput"
+                    @input="handleInput"
                 />
             </div>
             <div class="input-group-text">
                 <label for="password">Contraseña</label>
                 <input
-                    :class="`form-control ${shadow.password ? 'shadow' : ''}`"
+                    class="form-control"
+                    :class="`${shadow.password ? 'shadow' : ''}`"
                     v-model="formData.password"
                     type="password"
                     name="password"
                     id="password"
-					@input="handleInput"
+                    @input="handleInput"
                 />
             </div>
             <div class="input-group-text">
                 <label for="city">Ciudad</label>
                 <select
-                    :class="`custom-select select ${shadow.city ? 'shadow' : ''}`"
+                    class="custom-select select"
+                    :class="`${shadow.city ? 'shadow' : ''}`"
                     v-model="formData.city"
                     id="city"
-					@input="handleInput"
+                    @input="handleInput"
                 >
                     <option v-for="(city, i) in cities" :key="`${i}-cities`" :value="city">
                         {{ city }}
@@ -133,18 +137,39 @@
             </div>
             <div class="input-group-text">
                 <label>Idiomas</label>
-                <div :class="`form-control ${shadow.lang ? 'shadow' : ''}`">
+                <div class="form-control" :class="`${shadow.lang ? 'shadow' : ''}`">
                     <label for="es">Español</label>
-                    <input type="checkbox" name="lang" id="es" value="es" v-model="formData.lang" @input="handleInput" />
+                    <input
+                        type="checkbox"
+                        name="lang"
+                        id="es"
+                        value="es"
+                        v-model="formData.lang"
+                        @input="handleInput"
+                    />
                     <label for="en">Inglés</label>
-                    <input type="checkbox" name="lang" id="en" value="en" v-model="formData.lang" @input="handleInput" />
+                    <input
+                        type="checkbox"
+                        name="lang"
+                        id="en"
+                        value="en"
+                        v-model="formData.lang"
+                        @input="handleInput"
+                    />
                 </div>
             </div>
             <div class="input-group-text">
                 <label>Color</label>
-                <div :class="`form-control ${shadow.color ? 'shadow' : ''}`">
+                <div class="form-control" :class="`${shadow.color ? 'shadow' : ''}`">
                     <label for="blue">Azul</label>
-                    <input type="radio" name="color" id="blue" value="azul" v-model="formData.color" @input="handleInput" />
+                    <input
+                        type="radio"
+                        name="color"
+                        id="blue"
+                        value="azul"
+                        v-model="formData.color"
+                        @input="handleInput"
+                    />
                     <label for="green">Verde</label>
                     <input
                         type="radio"
@@ -152,7 +177,7 @@
                         id="green"
                         value="verde"
                         v-model="formData.color"
-						@input="handleInput"
+                        @input="handleInput"
                     />
                 </div>
             </div>
