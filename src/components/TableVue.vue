@@ -5,17 +5,12 @@
     const store = useStore()
     const rows = computed(() => {
         const rows = store.getters.getRows
-        return [header, ...rows]
+        return rows
     })
-    const header = {
-        name: 'Nombre',
-        email: 'Correo',
-        number: 'Número',
-        password: 'Password',
-        city: 'Ciudad',
-        lang: 'Idiomas',
-        color: 'Color'
-    }
+
+    const handleRowStyle = (array, i) => {
+		return i % 2 ? array[0] : array[1]
+	}
     const { tableTitle, rowStyle } = defineProps({
         tableTitle: {
             type: String,
@@ -23,7 +18,7 @@
         },
         rowStyle: {
             type: Array,
-            default: ['background: white', 'background: gray', '; background: gold']
+            default: ['background: white', 'background: gray']
         }
     })
 </script>
@@ -31,27 +26,33 @@
     <div class="table-container">
         <h3 class="table-title">{{ tableTitle }}</h3>
         <table>
+            <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Número</th>
+                    <th>Password</th>
+                    <th>Ciudad</th>
+                    <th>Idiomas</th>
+                    <th>Color</th>
+                </tr>
+            </thead>
             <tbody>
                 <tr
                     v-for="(column, i) of rows"
                     :key="i + '-column'"
-                    :style="i % 2 ? rowStyle[0] : rowStyle[1] + (i === 0 ? rowStyle[2] : '')"
+                    :style="handleRowStyle(rowStyle, i)"
                 >
-                    <th :class="i === 0 ? 'header-table' : ''" scope="row">
-                        {{ i === 0 ? 'Nº' : i }}
+                    <th scope="row">
+                        {{ i + 1 }}
                     </th>
                     <td v-if="i" v-for="(row, i) of column" :key="i + '-row'">
                         {{ row }}
                     </td>
-                    <th
-                        v-if="!i"
-                        class="header-table"
-                        v-for="(row, i) of column"
-                        :key="i + '-row'"
-                        scope="col"
-                    >
+                    <td v-if="!i" v-for="(row, i) of column" :key="i + '-row'">
                         {{ row }}
-                    </th>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -74,7 +75,7 @@
         text-align: center;
     }
 
-    .header-table {
+    tr th {
         background: gold;
         margin: 0 auto;
     }

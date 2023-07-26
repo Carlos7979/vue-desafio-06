@@ -1,18 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Form from './components/Form.vue'
-import Table from './components/Table.vue'
+import FormVue from './components/FormVue.vue'
+import TableVue from './components/TableVue.vue'
 
 const routes = [
     {
         path: '/',
         name: 'Form',
-        component: Form
+        component: FormVue
     },
     {
         path: '/table',
         name: 'Table',
-        component: Table
+        component: TableVue
     }
 ]
 

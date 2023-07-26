@@ -63,95 +63,68 @@
 		}
     }
 
-    watch(() => formData.name, (newValue, oldValue) => {
-        if (newValue && !oldValue) {
-            shadow.name = ''
-        }
-    })
-
-    watch(() => formData.email, (newValue, oldValue) => {
-        if (newValue && !oldValue) {
-            shadow.email = ''
-            return
-        }
-
-        if (emailValidate(newValue)) {
-            shadow.email = ''
-            validate()
-        }
-    })
-    watch(() => formData.number, (newValue, oldValue) => {
-        if (newValue && !oldValue) shadow['number'] = ''
-    })
-    watch(() => formData.password, (newValue, oldValue) => {
-        if (newValue && !oldValue) shadow['password'] = ''
-    })
-    watch(() => formData.city, (newValue, oldValue) => {
-        if (newValue && !oldValue) shadow['city'] = ''
-    })
-    watch(() => formData.lang.length, (newValue, oldValue) => {
-        if (newValue && !oldValue) shadow['lang'] = ''
-    })
-    watch(() => formData.color, (newValue, oldValue) => {
-        if (newValue && !oldValue) shadow['color'] = ''
-    })
+	const handleInput = (e) => {
+		const name = e.target.name
+		shadow[name] = ''
+		if (name === ' email') emailValidate(e.target.value)
+	}
 
 </script>
 
 <template>
     <div class="form-container">
-        <form ref="form" action="" method="post" class="form">
+        <form action="" method="post" class="form">
             <div class="input-group-text">
                 <label for="name">Nombre</label>
                 <input
-                    ref="name"
-                    :class="`form-control ${shadow.name}`"
+                    :class="`form-control ${shadow.name ? 'shadow' : ''}`"
                     v-model.trim="formData.name"
                     type="text"
                     name="name"
                     id="name"
+					@input="handleInput"
                 />
             </div>
             <div class="input-group-text">
                 <label for="email">Correo</label>
                 <input
-                    ref="email"
-                    :class="`form-control ${shadow.email}`"
+                    :class="`form-control ${shadow.email ? 'shadow' : ''}`"
                     v-model="formData.email"
                     type="email"
                     name="email"
                     id="email"
+					@input="handleInput"
                 />
             </div>
             <div class="input-group-text">
                 <label for="number">Número</label>
                 <input
-                    ref="number"
-                    :class="`form-control ${shadow.number}`"
+                    :class="`form-control ${shadow.number ? 'shadow' : ''}`"
                     v-model.prevent="formData.number"
                     type="number"
                     name="number"
                     id="number"
+					@input="handleInput"
                 />
             </div>
             <div class="input-group-text">
                 <label for="password">Contraseña</label>
                 <input
-                    ref="password"
-                    :class="`form-control ${shadow.password}`"
+                    :class="`form-control ${shadow.password ? 'shadow' : ''}`"
                     v-model="formData.password"
                     type="password"
                     name="password"
                     id="password"
+					@input="handleInput"
                 />
             </div>
             <div class="input-group-text">
                 <label for="city">Ciudad</label>
                 <select
-                    ref="city"
-                    :class="`custom-select select ${shadow.city}`"
+                    :class="`custom-select select ${shadow.city ? 'shadow' : ''}`"
                     v-model="formData.city"
                     id="city"
+					@input="handleInput"
                 >
                     <option v-for="(city, i) in cities" :key="`${i}-cities`" :value="city">
                         {{ city }}
@@ -160,18 +133,18 @@
             </div>
             <div class="input-group-text">
                 <label>Idiomas</label>
-                <div ref="lang" :class="`form-control ${shadow.lang}`">
+                <div :class="`form-control ${shadow.lang ? 'shadow' : ''}`">
                     <label for="es">Español</label>
-                    <input type="checkbox" name="lang" id="es" value="es" v-model="formData.lang" />
+                    <input type="checkbox" name="lang" id="es" value="es" v-model="formData.lang" @input="handleInput" />
                     <label for="en">Inglés</label>
-                    <input type="checkbox" name="lang" id="en" value="en" v-model="formData.lang" />
+                    <input type="checkbox" name="lang" id="en" value="en" v-model="formData.lang" @input="handleInput" />
                 </div>
             </div>
             <div class="input-group-text">
                 <label>Color</label>
-                <div ref="color" :class="`form-control ${shadow.color}`">
+                <div :class="`form-control ${shadow.color ? 'shadow' : ''}`">
                     <label for="blue">Azul</label>
-                    <input type="radio" name="color" id="blue" value="azul" v-model="formData.color" />
+                    <input type="radio" name="color" id="blue" value="azul" v-model="formData.color" @input="handleInput" />
                     <label for="green">Verde</label>
                     <input
                         type="radio"
@@ -179,6 +152,7 @@
                         id="green"
                         value="verde"
                         v-model="formData.color"
+						@input="handleInput"
                     />
                 </div>
             </div>

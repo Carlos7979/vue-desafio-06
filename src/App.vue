@@ -1,6 +1,6 @@
 <script setup>
-    import Header from './components/Header.vue'
-    import Info from './components/Info.vue'
+    import HeaderVue from './components/HeaderVue.vue'
+    import InfoVue from './components/InfoVue.vue'
     import { onBeforeMount } from 'vue'
     import { useStore } from 'vuex'
     import { useRouter, useRoute } from 'vue-router'
@@ -20,8 +20,8 @@
 
 <template>
     <div class="main">
-        <Header></Header>
-        <Info></Info>
+        <HeaderVue></HeaderVue>
+        <InfoVue></InfoVue>
         <button class="btn btn-secondary button" @click="handleClick">
             {{ $route.name === 'Form' ? 'Ver tabla' : 'Ir a formulario' }}
         </button>
